@@ -5,6 +5,6 @@ __pycache__/
 
 
 # Project-specific 
-comfyui-noise-match.txt      # the filetree dump
+comfyui-noise-match.txt
 CSDH*.bat
 CSDH*.ps1
