@@ -1,0 +1,937 @@
+{
+  "id": "c6d84c6f-59e0-4102-9a5a-2e20073ca065",
+  "revision": 0,
+  "last_node_id": 40,
+  "last_link_id": 64,
+  "nodes": [
+    {
+      "id": 5,
+      "type": "Display Any (rgthree)",
+      "pos": [
+        9410,
+        5190
+      ],
+      "size": [
+        210,
+        256.345458984375
+      ],
+      "flags": {},
+      "order": 13,
+      "mode": 0,
+      "inputs": [
+        {
+          "dir": 3,
+          "name": "source",
+          "type": "*",
+          "link": 10
+        }
+      ],
+      "outputs": [],
+      "properties": {
+        "cnr_id": "rgthree-comfy",
+        "ver": "1.0.2506081210",
+        "Node name for S&R": "Display Any (rgthree)",
+        "ue_properties": {
+          "widget_ue_connectable": {},
+          "version": "7.1",
+          "input_ue_unconnectable": {}
+        }
+      },
+      "widgets_values": [
+        "Noise Pattern Analysis:\nSize: 352 x 352 pixels\nChannels: 3\nMean: 0.5000 (should be ~0.5)\nStd Dev: 0.0175\nMin: 0.3695\nMax: 0.5896\nCenter Offset: 0.0000 (✓ OK)\nChannel means:\n  R: 0.5000\n  G: 0.5000\n  B: 0.5000\n\nStatus: Ready to apply\n"
+      ]
+    },
+    {
+      "id": 9,
+      "type": "NoisePatternVisualizer",
+      "pos": [
+        9110,
+        5190
+      ],
+      "size": [
+        233.06666564941406,
+        46
+      ],
+      "flags": {},
+      "order": 10,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "noise_pattern",
+          "type": "IMAGE",
+          "link": 22
+        }
+      ],
+      "outputs": [
+        {
+          "name": "pattern",
+          "type": "IMAGE",
+          "links": [
+            41,
+            46
+          ]
+        },
+        {
+          "name": "stats",
+          "type": "STRING",
+          "links": [
+            10
+          ]
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "NoisePatternVisualizer",
+        "ue_properties": {
+          "widget_ue_connectable": {},
+          "version": "7.1",
+          "input_ue_unconnectable": {}
+        }
+      },
+      "widgets_values": []
+    },
+    {
+      "id": 10,
+      "type": "NoiseRegionDetector",
+      "pos": [
+        8460,
+        5190
+      ],
+      "size": [
+        284.6666564941406,
+        126
+      ],
+      "flags": {},
+      "order": 5,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "image",
+          "type": "IMAGE",
+          "link": 34
+        },
+        {
+          "name": "mask",
+          "shape": 7,
+          "type": "MASK",
+          "link": 64
+        }
+      ],
+      "outputs": [
+        {
+          "name": "noise_sample",
+          "type": "IMAGE",
+          "links": [
+            17,
+            63
+          ]
+        },
+        {
+          "name": "info",
+          "type": "STRING",
+          "links": [
+            14
+          ]
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "NoiseRegionDetector",
+        "ue_properties": {
+          "widget_ue_connectable": {
+            "detection_method": true,
+            "min_region_size": true,
+            "smoothness_threshold": true
+          },
+          "version": "7.1",
+          "input_ue_unconnectable": {}
+        }
+      },
+      "widgets_values": [
+        "mask_based",
+        352,
+        0.01
+      ]
+    },
+    {
+      "id": 11,
+      "type": "Display Any (rgthree)",
+      "pos": [
+        8469.853515625,
+        5380.8193359375
+      ],
+      "size": [
+        268.3138122558594,
+        133.18092346191406
+      ],
+      "flags": {},
+      "order": 9,
+      "mode": 0,
+      "inputs": [
+        {
+          "dir": 3,
+          "name": "source",
+          "type": "*",
+          "link": 14
+        }
+      ],
+      "outputs": [],
+      "properties": {
+        "cnr_id": "rgthree-comfy",
+        "ver": "1.0.2506081210",
+        "Node name for S&R": "Display Any (rgthree)",
+        "ue_properties": {
+          "widget_ue_connectable": {},
+          "version": "7.1",
+          "input_ue_unconnectable": {}
+        }
+      },
+      "widgets_values": [
+        "Mask-based Extraction:\nRegion: y=[0:352], x=[0:352]\nOutput size: 352 x 352 pixels\nMask coverage in crop: 63.8%\nVariance: 0.000042\nQuality: Excellent\n"
+      ]
+    },
+    {
+      "id": 14,
+      "type": "RealNoiseExtractor",
+      "pos": [
+        8790,
+        5190
+      ],
+      "size": [
+        270,
+        202
+      ],
+      "flags": {},
+      "order": 7,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "noise_sample",
+          "type": "IMAGE",
+          "link": 17
+        }
+      ],
+      "outputs": [
+        {
+          "name": "noise_pattern",
+          "type": "IMAGE",
+          "links": [
+            22
+          ]
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "RealNoiseExtractor",
+        "ue_properties": {
+          "widget_ue_connectable": {
+            "high_pass_radius": true,
+            "method": true,
+            "contrast_boost": true,
+            "preserve_color": true
+          },
+          "version": "7.1",
+          "input_ue_unconnectable": {}
+        }
+      },
+      "widgets_values": [
+        1.5,
+        "high_pass_centered",
+        3.3,
+        false,
+        true,
+        42,
+        "pairwise_blend"
+      ]
+    },
+    {
+      "id": 15,
+      "type": "LoadImage",
+      "pos": [
+        8121.58056640625,
+        5718.39794921875
+      ],
+      "size": [
+        274,
+        314
+      ],
+      "flags": {},
+      "order": 0,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [
+        {
+          "name": "IMAGE",
+          "type": "IMAGE",
+          "links": [
+            50
+          ]
+        },
+        {
+          "name": "MASK",
+          "type": "MASK",
+          "links": [
+            56
+          ]
+        }
+      ],
+      "properties": {
+        "cnr_id": "comfy-core",
+        "ver": "0.3.62",
+        "Node name for S&R": "LoadImage",
+        "ue_properties": {
+          "widget_ue_connectable": {
+            "image": true,
+            "upload": true
+          },
+          "version": "7.1",
+          "input_ue_unconnectable": {}
+        }
+      },
+      "widgets_values": [
+        "foreground.png",
+        "image"
+      ]
+    },
+    {
+      "id": 17,
+      "type": "PreviewImage",
+      "pos": [
+        9606.6611328125,
+        5718.39794921875
+      ],
+      "size": [
+        452.91766357421875,
+        258
+      ],
+      "flags": {},
+      "order": 14,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "images",
+          "type": "IMAGE",
+          "link": 43
+        }
+      ],
+      "outputs": [],
+      "properties": {
+        "cnr_id": "comfy-core",
+        "ver": "0.3.62",
+        "Node name for S&R": "PreviewImage",
+        "ue_properties": {
+          "widget_ue_connectable": {},
+          "version": "7.1",
+          "input_ue_unconnectable": {}
+        }
+      },
+      "widgets_values": []
+    },
+    {
+      "id": 21,
+      "type": "Image Comparer (rgthree)",
+      "pos": [
+        9604.5888671875,
+        6032.376953125
+      ],
+      "size": [
+        539.4329833984375,
+        204.83644104003906
+      ],
+      "flags": {},
+      "order": 15,
+      "mode": 0,
+      "inputs": [
+        {
+          "dir": 3,
+          "name": "image_a",
+          "type": "IMAGE",
+          "link": 60
+        },
+        {
+          "dir": 3,
+          "name": "image_b",
+          "type": "IMAGE",
+          "link": 59
+        }
+      ],
+      "outputs": [],
+      "properties": {
+        "cnr_id": "rgthree-comfy",
+        "ver": "1.0.2506081210",
+        "comparer_mode": "Slide",
+        "ue_properties": {
+          "widget_ue_connectable": {},
+          "version": "7.1",
+          "input_ue_unconnectable": {}
+        }
+      },
+      "widgets_values": [
+        [
+          {
+            "name": "A",
+            "selected": true,
+            "url": "/api/view?filename=rgthree.compare._temp_vmzxd_00027_.png&type=temp&subfolder=&rand=0.30273116274397094"
+          },
+          {
+            "name": "B",
+            "selected": true,
+            "url": "/api/view?filename=rgthree.compare._temp_vmzxd_00028_.png&type=temp&subfolder=&rand=0.8636489004099502"
+          }
+        ]
+      ]
+    },
+    {
+      "id": 29,
+      "type": "PreviewImage",
+      "pos": [
+        9088.9921875,
+        4855.93017578125
+      ],
+      "size": [
+        268.7151794433594,
+        284.5055847167969
+      ],
+      "flags": {},
+      "order": 11,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "images",
+          "type": "IMAGE",
+          "link": 41
+        }
+      ],
+      "outputs": [],
+      "properties": {
+        "cnr_id": "comfy-core",
+        "ver": "0.3.62",
+        "Node name for S&R": "PreviewImage",
+        "ue_properties": {
+          "widget_ue_connectable": {},
+          "version": "7.1",
+          "input_ue_unconnectable": {}
+        }
+      },
+      "widgets_values": []
+    },
+    {
+      "id": 30,
+      "type": "LoadImage",
+      "pos": [
+        8120,
+        5190
+      ],
+      "size": [
+        274,
+        314
+      ],
+      "flags": {},
+      "order": 2,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [
+        {
+          "name": "IMAGE",
+          "type": "IMAGE",
+          "links": [
+            34,
+            47,
+            60
+          ]
+        },
+        {
+          "name": "MASK",
+          "type": "MASK",
+          "links": [
+            64
+          ]
+        }
+      ],
+      "properties": {
+        "cnr_id": "comfy-core",
+        "ver": "0.3.62",
+        "Node name for S&R": "LoadImage",
+        "ue_properties": {
+          "widget_ue_connectable": {
+            "image": true,
+            "upload": true
+          },
+          "version": "7.1",
+          "input_ue_unconnectable": {}
+        }
+      },
+      "widgets_values": [
+        "clipspace/clipspace-painted-masked-1445783.png [input]",
+        "image"
+      ]
+    },
+    {
+      "id": 31,
+      "type": "ApplyNoisePattern",
+      "pos": [
+        9044.96875,
+        5718.39794921875
+      ],
+      "size": [
+        314.66668701171875,
+        334
+      ],
+      "flags": {},
+      "order": 12,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "image",
+          "type": "IMAGE",
+          "link": 50
+        },
+        {
+          "name": "noise_pattern",
+          "type": "IMAGE",
+          "link": 46
+        },
+        {
+          "name": "mask",
+          "shape": 7,
+          "type": "MASK",
+          "link": 58
+        },
+        {
+          "name": "base_image",
+          "shape": 7,
+          "type": "IMAGE",
+          "link": 47
+        }
+      ],
+      "outputs": [
+        {
+          "name": "result",
+          "type": "IMAGE",
+          "links": [
+            43,
+            59
+          ]
+        },
+        {
+          "name": "info",
+          "type": "STRING",
+          "links": [
+            44
+          ]
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "ApplyNoisePattern",
+        "ue_properties": {
+          "widget_ue_connectable": {
+            "strength": true,
+            "blend_mode": true,
+            "respect_alpha": true,
+            "mask_feather_px": true,
+            "treat_input_as_premultiplied": true,
+            "offset_x": true,
+            "offset_y": true,
+            "randomize_phase": true,
+            "seed": true
+          },
+          "version": "7.1",
+          "input_ue_unconnectable": {}
+        }
+      },
+      "widgets_values": [
+        1,
+        "linear_light",
+        true,
+        1,
+        false,
+        0,
+        0,
+        false,
+        1906682992,
+        "randomize"
+      ]
+    },
+    {
+      "id": 32,
+      "type": "Display Any (rgthree)",
+      "pos": [
+        9066.623046875,
+        6151.36083984375
+      ],
+      "size": [
+        212.86888122558594,
+        234.5806884765625
+      ],
+      "flags": {},
+      "order": 16,
+      "mode": 0,
+      "inputs": [
+        {
+          "dir": 3,
+          "name": "source",
+          "type": "*",
+          "link": 44
+        }
+      ],
+      "outputs": [],
+      "properties": {
+        "cnr_id": "rgthree-comfy",
+        "ver": "1.0.2506081210",
+        "Node name for S&R": "Display Any (rgthree)",
+        "ue_properties": {
+          "widget_ue_connectable": {},
+          "version": "7.1",
+          "input_ue_unconnectable": {}
+        }
+      },
+      "widgets_values": [
+        "Apply Noise (alpha-safe)\n- Image: 2429x1662x3 | Pattern: 2429x1662x3\n- Blend: linear_light @ 1.000\n- Mask sources: external-mask | Coverage: 64.4% | Feather: 1.0px\n- Premultiplied handling: OFF\n- Base image composited: YES\n- Output channels: 3 (RGB)"
+      ]
+    },
+    {
+      "id": 36,
+      "type": "AILab_MaskPreview",
+      "pos": [
+        8623.865234375,
+        5718.39794921875
+      ],
+      "size": [
+        307.4002380371094,
+        319.2624816894531
+      ],
+      "flags": {
+        "collapsed": false
+      },
+      "order": 6,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "mask",
+          "type": "MASK",
+          "link": 57
+        }
+      ],
+      "outputs": [
+        {
+          "name": "MASK",
+          "type": "MASK",
+          "links": [
+            58
+          ]
+        }
+      ],
+      "properties": {
+        "cnr_id": "comfyui-rmbg",
+        "ver": "2.9.3",
+        "Node name for S&R": "AILab_MaskPreview",
+        "ue_properties": {
+          "widget_ue_connectable": {},
+          "version": "7.1",
+          "input_ue_unconnectable": {}
+        }
+      },
+      "widgets_values": [],
+      "color": "#2e3e57",
+      "bgcolor": "#4b5b73"
+    },
+    {
+      "id": 37,
+      "type": "InvertMask",
+      "pos": [
+        8441.943359375,
+        5820.05712890625
+      ],
+      "size": [
+        140,
+        26
+      ],
+      "flags": {
+        "collapsed": true
+      },
+      "order": 4,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "mask",
+          "type": "MASK",
+          "link": 56
+        }
+      ],
+      "outputs": [
+        {
+          "name": "MASK",
+          "type": "MASK",
+          "links": [
+            57
+          ]
+        }
+      ],
+      "properties": {
+        "cnr_id": "comfy-core",
+        "ver": "0.3.62",
+        "Node name for S&R": "InvertMask",
+        "ue_properties": {
+          "widget_ue_connectable": {},
+          "version": "7.1",
+          "input_ue_unconnectable": {}
+        }
+      },
+      "widgets_values": []
+    },
+    {
+      "id": 38,
+      "type": "Note",
+      "pos": [
+        7764.4384765625,
+        5202.71728515625
+      ],
+      "size": [
+        295.17779541015625,
+        292.8668518066406
+      ],
+      "flags": {},
+      "order": 3,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [],
+      "properties": {
+        "ue_properties": {
+          "widget_ue_connectable": {},
+          "version": "7.1",
+          "input_ue_unconnectable": {}
+        }
+      },
+      "widgets_values": [
+        "Composite image goes here. \n\nManual noise region selection:\n\n1. Right click image and open in mask editor. \n\n2. Draw mask over smooth region. \n\n3. Save mask. \n\nMake sure to double check the preview of the noise sample region. The node processes the area under the mask into a square, so it could include elements outside of your mask. If that happens, just erase some of the mask in the mask editor. \n\nObviously make sure the region your selecting is from the noisy image you are trying to match your foreground image to. "
+      ],
+      "color": "#432",
+      "bgcolor": "#653"
+    },
+    {
+      "id": 39,
+      "type": "Note",
+      "pos": [
+        7777.5498046875,
+        5716.62646484375
+      ],
+      "size": [
+        293.3869323730469,
+        130.79397583007812
+      ],
+      "flags": {},
+      "order": 1,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [],
+      "properties": {
+        "ue_properties": {
+          "widget_ue_connectable": {},
+          "version": "7.1",
+          "input_ue_unconnectable": {}
+        }
+      },
+      "widgets_values": [
+        "Composited region (to be noise matched) goes here. Make sure everything but the composite region to be noised is alpha. \n\n- mask must be inverted by default. "
+      ],
+      "color": "#432",
+      "bgcolor": "#653"
+    },
+    {
+      "id": 40,
+      "type": "PreviewImage",
+      "pos": [
+        8465.8154296875,
+        4842.14013671875
+      ],
+      "size": [
+        268.7151794433594,
+        284.5055847167969
+      ],
+      "flags": {},
+      "order": 8,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "images",
+          "type": "IMAGE",
+          "link": 63
+        }
+      ],
+      "outputs": [],
+      "properties": {
+        "cnr_id": "comfy-core",
+        "ver": "0.3.62",
+        "Node name for S&R": "PreviewImage",
+        "ue_properties": {
+          "widget_ue_connectable": {},
+          "version": "7.1",
+          "input_ue_unconnectable": {}
+        }
+      },
+      "widgets_values": []
+    }
+  ],
+  "links": [
+    [
+      10,
+      9,
+      1,
+      5,
+      0,
+      "*"
+    ],
+    [
+      14,
+      10,
+      1,
+      11,
+      0,
+      "*"
+    ],
+    [
+      17,
+      10,
+      0,
+      14,
+      0,
+      "IMAGE"
+    ],
+    [
+      22,
+      14,
+      0,
+      9,
+      0,
+      "IMAGE"
+    ],
+    [
+      34,
+      30,
+      0,
+      10,
+      0,
+      "IMAGE"
+    ],
+    [
+      41,
+      9,
+      0,
+      29,
+      0,
+      "IMAGE"
+    ],
+    [
+      43,
+      31,
+      0,
+      17,
+      0,
+      "IMAGE"
+    ],
+    [
+      44,
+      31,
+      1,
+      32,
+      0,
+      "*"
+    ],
+    [
+      46,
+      9,
+      0,
+      31,
+      1,
+      "IMAGE"
+    ],
+    [
+      47,
+      30,
+      0,
+      31,
+      3,
+      "IMAGE"
+    ],
+    [
+      50,
+      15,
+      0,
+      31,
+      0,
+      "IMAGE"
+    ],
+    [
+      56,
+      15,
+      1,
+      37,
+      0,
+      "MASK"
+    ],
+    [
+      57,
+      37,
+      0,
+      36,
+      0,
+      "MASK"
+    ],
+    [
+      58,
+      36,
+      0,
+      31,
+      2,
+      "MASK"
+    ],
+    [
+      59,
+      31,
+      0,
+      21,
+      1,
+      "IMAGE"
+    ],
+    [
+      60,
+      30,
+      0,
+      21,
+      0,
+      "IMAGE"
+    ],
+    [
+      63,
+      10,
+      0,
+      40,
+      0,
+      "IMAGE"
+    ],
+    [
+      64,
+      30,
+      1,
+      10,
+      1,
+      "MASK"
+    ]
+  ],
+  "groups": [],
+  "config": {},
+  "extra": {
+    "ue_links": [],
+    "links_added_by_ue": [],
+    "ds": {
+      "scale": 0.5730855330116813,
+      "offset": [
+        -6907.67622005107,
+        -4704.473744636137
+      ]
+    },
+    "frontendVersion": "1.27.7",
+    "VHS_latentpreview": false,
+    "VHS_latentpreviewrate": 0,
+    "VHS_MetadataImage": true,
+    "VHS_KeepIntermediate": true
+  },
+  "version": 0.4
+}

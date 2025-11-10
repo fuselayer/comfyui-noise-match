@@ -1,0 +1,10 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+
+
+# Project-specific 
+comfyui-noise-match.txt      # the filetree dump
+CSDH*.bat
+CSDH*.ps1
